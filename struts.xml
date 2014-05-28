@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+ 	<constant name="struts.mapper.action.prefix.enabled" value="true" />
+    <package name="default" extends="struts-default" namespace="/">
+		<interceptors>
+    		 <interceptor-stack name="myDefaultStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload">
+                	<param name="allowedTypes">application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.wordprocessingml.template</param>
+                </interceptor-ref>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,parameters\...*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="debugging"/>
+     		</interceptor-stack>
+     </interceptors>
+        <action name="login"
+            class="org.exec.improv.LoginAction">
+            <result>Welcome.jsp</result>
+            <result name="error">Login.jsp</result>
+            <result name="input">Login.jsp</result>
+        </action>
+        <action name="loginModel"
+            class="org.exec.improv.LoginActionModel">
+            <result>Welcome.jsp</result>
+            <result name="error">Login.jsp</result>
+            <result name="input">Login.jsp</result>
+        </action>
+        <action name="imageUpload"
+            class="org.exec.improv.ImageUpload">
+            <result>Welcome.jsp</result>
+            <result name="error">Login.jsp</result>
+            <result name="input">Login.jsp</result>
+        </action>
+        <action name="UploadFile"
+            class="org.exec.file.action.UploadFileAction">
+            <interceptor-ref name="myDefaultStack"/>
+            <result>UploadFileSuccess.jsp</result>
+            <result name="error">Login.jsp</result>
+            <result name="input">UploadFile.jsp</result>
+        </action>
+        <action name="Register"
+            class="org.exec.file.action.RegisterAction">
+            <result>UploadFile.jsp</result>
+            <result name="input">Register.jsp</result>
+            <result name="none">Register.jsp</result>
+        </action>
+        <action name="RegisterCancel" method="cancel"
+            class="org.exec.file.action.RegisterAction">
+            <result>UploadFile.jsp</result>
+            <result name="input">Register.jsp</result>
+            <result name="none">Register.jsp</result>
+        </action>
+        
+        
+        
+    </package>
+  </struts>
